@@ -1,20 +1,51 @@
 # 2020 期中 Problem 2 — 鉛在人體內三隔室模型 (15%)
 
-> **題目**:鉛經由食物、空氣、水進入血液,累積在血液、組織、骨骼;部分由尿液、毛髮指甲與汗液排出。三個隔室的速率方程為:
+## 原題(完整)
+
+> **Problem 2: (15%) – In-Class Problem**
 >
+> Lead is an ingredient in many objects of everyday life: car batteries, water pipes, glassware, ceramics, paint, and gasoline. But lead is toxic, and high levels in the blood and tissues will impair motor and mental capacities. One way to begin to understand this is to build a model of lead flow in the body.
+>
+> Lead enters the bloodstream via food, air, and water. It accumulates in the blood, in tissues, and especially in the bones. Some lead is excreted by the kidneys and by hair, nails, and sweat. Numbering the body compartments as 1, 2, and 3, the following schematic diagram represents the flow of lead through the compartment. Applying the conservation law to the lead flow through the blood, tissue, and bone compartments, we can model the system with three rate equations:
+>
+> **Schematic**(PDF 給的圖):
+>
+> ```
+>                              I₁  (Lead input)
+>                              │
+>                              ▼
+>     ┌─────────┐   k₃₁·x₁   ┌─────────┐   k₂₁·x₁   ┌─────────┐
+>     │    3    │ ◄────────  │    1    │ ─────────► │    2    │
+>     │  Bones  │            │  Blood  │            │ Tissues │
+>     │  x₃(t)  │ ─────────► │  x₁(t)  │ ◄───────── │  x₂(t)  │
+>     └─────────┘   k₁₃·x₃   └────┬────┘   k₁₂·x₂   └────┬────┘
+>                                 │                       │
+>                          k₀₁·x₁ ▼ (Urine)        k₀₂·x₂ ▼ (Hair, nails, sweat)
+> ```
+>
+> **三條速率方程**:
 > $$
 > \begin{aligned}
-> \text{blood:}\quad & \frac{dx_1}{dt} = -(k_{01}+k_{21}+k_{31})\,x_1 + k_{12}\,x_2 + k_{13}\,x_3 + I_1 \\
-> \text{tissues:}\quad & \frac{dx_2}{dt} = k_{21}\,x_1 - (k_{02}+k_{12})\,x_2 \\
-> \text{bones:}\quad & \frac{dx_3}{dt} = k_{31}\,x_1 - k_{13}\,x_3
+> \text{blood:}\quad & \tfrac{dx_1}{dt} = -(k_{01}+k_{21}+k_{31})\,x_1 + k_{12}\,x_2 + k_{13}\,x_3 + I_1 \\
+> \text{tissues:}\quad & \tfrac{dx_2}{dt} = k_{21}\,x_1 - (k_{02}+k_{12})\,x_2 \\
+> \text{bones:}\quad & \tfrac{dx_3}{dt} = k_{31}\,x_1 - k_{13}\,x_3
 > \end{aligned}
 > $$
 >
-> 參數:$I_1 = 49.3\,\mu\text{g/day}$,$k_{01}=0.0211$,$k_{21}=0.0111$,$k_{31}=0.0039$,$k_{02}=0.0162$,$k_{12}=0.0124$,$k_{13}=0.000035$(單位 $\text{day}^{-1}$)。
+> Michael Rabinowitz, George Wetherill, and Joel Kopple made a controlled study of the lead intake and excretion of a healthy volunteer living in Southern California. The data from this study were used to estimate the values of the lead intake rate $I_1$ in micrograms/day and the rate constants $k_{ji}$ in (days)$^{-1}$:
 >
-> 用兩組初值,模擬 800 與 8000 天,討論結果:
-> - IC1:$x_1(0)=x_2(0)=x_3(0)=0$
-> - IC2:$x_1(0)=x_2(0)=x_3(0)=1800$
+> $$
+> I_1 = 49.3;\quad k_{01}=0.0211;\quad k_{21}=0.0111;\quad k_{31}=0.0039
+> $$
+>
+> $$
+> k_{02}=0.0162;\quad k_{12}=0.0124;\quad k_{13}=0.000035
+> $$
+>
+> Using the above model and parameters, and taking the following two different sets of initial values, perform numerical simulations and plot the lead levels in the bloodstream, tissues, and bones over a period of **800 days** and **8000 days**, respectively. **Discuss your simulation results.**
+>
+> - **Initial condition 1**: $x_1(0)=0,\;x_2(0)=0,\;x_3(0)=0$
+> - **Initial condition 2**: $x_1(0)=1800,\;x_2(0)=1800,\;x_3(0)=1800$
 
 ---
 

@@ -1,6 +1,12 @@
 # 2021 期中 Problem 1 — 植物–食草者連續模型 (15%)
 
-> **題目**:考慮一個連續的 plant–herbivore 模型。$q$ 是植物的「化學品質」(低→有毒、高→營養),$I$ 是依附在植物上的食草者(scale bug 之類的小昆蟲)密度。低到中度食草會「提升」植物品質,過度食草則「拉低」品質。系統方程如下:
+## 原題(完整)
+
+> **Problem 1: (15%) – In-Class Problem**
+>
+> In this problem we examine a continuous plant-herbivore model. We shall define $q$ as the chemical rate of the plant. Low values of $q$ mean that the plant is toxic; higher values mean that the herbivores derive some nutritious value from it. Consider a situation in which plant quality is **enhanced** when the vegetation is subjected to a **low to moderate** level of herbivory, and **declines** when herbivory is **extensive**. Assume that herbivores whose density is $I$ are small insects (such as **scale bugs**) that attach themselves to one plant for long periods of time. Further assume that their growth rate depends on the quality of the vegetation they consume.
+>
+> Typical equations that have been suggested for such a system are
 >
 > $$
 > \frac{dq}{dt} = K_1 - K_2\,q\,(I - I_0)
@@ -10,8 +16,8 @@
 > \frac{dI}{dt} = K_3\,I\,\left(1 - \frac{K_4 I}{q}\right)
 > $$
 >
-> 1. 解釋方程式,並提出 $K_1, K_2, I_0, K_3, K_4$ 的可能意義。
-> 2. 把它無因次化,用原參數表達新的無因次參數。
+> 1. Explain the equations, and suggest possible meanings for $K_1, K_2, I_0, K_3,$ and $K_4$.
+> 2. Derive the above differential equations into **dimensionless form**. Determine the new parameters in terms of original parameters.
 
 ---
 

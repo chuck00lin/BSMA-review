@@ -1,15 +1,24 @@
 # 2021 期中 Problem 3 — 兒童身高曲線擬合 (20%)
 
-> **題目**:某位小孩的身高 $H$ 隨年齡 $t$ 量測如下:
+## 原題(完整)
+
+> **Problem 3: (20%) – In-Class Problem**
+>
+> The height ($H$) of a child is measured at different ages as follows.
 >
 > | age (years) | 0 | 5 | 8 | 12 | 16 | 18 |
 > |---:|---:|---:|---:|---:|---:|---:|
 > | H (inch) | 20.0 | 36.2 | 52.0 | 60.0 | 69.2 | 70.0 |
 >
-> 用以下兩個模型估計**15 歲**和**30 歲**(成人)的身高。比較與討論兩個模型,哪個比較適合描述資料?哪個比較適合估計 30 歲的身高?
+> Estimate the height of the child as an adult of **15** and **30 years of age**, using the following two models. You may use MATLAB or python programs to find the parameters of each model. **Compare and discuss** the two models. Which model do you think is more appropriate to **describe the data**? Which model is more reasonable for the **estimation of the height of an adult of 30 years of age**?
 >
-> - **Model A**: $\displaystyle H = \frac{a}{1 + b\,e^{-c t}}$
-> - **Model B**: $H = \sqrt{a + b t}$
+> $$
+> \text{Model A:}\quad H = \frac{a}{1 + b\,e^{-ct}}
+> $$
+>
+> $$
+> \text{Model B:}\quad H = \sqrt{a + b\,t}
+> $$
 
 ---
 

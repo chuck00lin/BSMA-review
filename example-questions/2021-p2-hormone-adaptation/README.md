@@ -1,19 +1,25 @@
 # 2021 期中 Problem 2 — 賀爾蒙適應模型 (15%)
 
-> **題目**:很多生物系統能對「訊號的變化」反應,但對「訊號的絕對水平」不反應(adaptation,適應)。例如荷爾蒙水平慢慢升上去之後,細胞先是反應,後來又安靜下來。建模如下:
+## 原題(完整)
+
+> **Problem 2: (15%) – In-Class Problem**
+>
+> Many biological systems need to be able to respond to **changes** in the level of some signal (like a hormone) without responding to the **actual level**. For example, a cell might have no response to a low level of hormone. If the hormone level rapidly increases, the cell responds. But if the hormone level then remains constant at the higher level, the cell again stops responding. The process is sometimes called **adaptation**.
+>
+> One mechanism for this process is summarized in the following model. Internal response is a function of the fraction, $p$, of cell surface receptors that are bound by the hormone. This fraction increases when the hormone level, $H$, is high. However, the hormone also dissociates from bound receptors. Assume this happens at a rate $A$ but that this rate is **controlled by the cell**. One possible set of equations is
 >
 > $$
-> \frac{dp}{dt} = k_1 H (1 - p) - A p
+> \frac{dp}{dt} = k_1\,H\,(1 - p) - A\,p
 > $$
 >
 > $$
 > \frac{dA}{dt} = e\,(H - A)
 > $$
 >
-> 其中 $p$ = 表面受器被結合的比例, $H$ = 荷爾蒙水平, $A$ = 細胞控制的「解離率」。給 $k_1 = 0.5,\, e = 0.1$。
+> Suppose that $k_1 = 0.5$ and $e = 0.1$, use your computer to simulate the response of the cell.
 >
-> 1. 假設 $H = 1$,找平衡點。
-> 2. 模擬 $H$ 從 1 階躍到 10 的反應。畫 $p$、$A$ 隨時間的時序圖與 phase plane 圖($p$ vs $A$),解釋發生了什麼事。
+> 1. Find the **equilibrium state** of this model assuming that $H = 1$.
+> 2. Simulate the response when the level of $H$ jumps quickly from $H = 1$ to $H = 10$. Draw graphs of $p$ and $A$ in the **phase plane** (a plot of state variables $p$ vs. $A$) as functions of time. Explain what is happening.
 
 ---
 

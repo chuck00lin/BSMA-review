@@ -1,16 +1,30 @@
 # 2020 期中 Problem 3 — 藻類生物量曲線擬合 (20%)
 
-> **題目**:Adriatic Sea 一個藻類樣本的時間-生物量資料:
+## 原題(完整)
+
+> **Problem 3: (20%) – In-Class Problem**
+>
+> The following table shows the data of time evolution of an algal sample taken in the Adriatic Sea (Zangrandi, 1991; Cavallini, 1993):
 >
 > | Time (days) | 11 | 15 | 18 | 23 | 26 | 31 | 39 | 44 | 54 | 64 | 74 |
 > |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-> | $B$ (mm²) | 0.00476 | 0.0105 | 0.0207 | 0.0619 | 0.337 | 0.74 | 1.7 | 2.45 | 3.5 | 4.5 | 5.09 |
+> | Biomass (mm²) | 0.00476 | 0.0105 | 0.0207 | 0.0619 | 0.337 | 0.74 | 1.7 | 2.45 | 3.5 | 4.5 | 5.09 |
 >
-> 用以下三個模型估計**第 150 天**的生物量。比較與討論這三個模型;哪個比較適合描述資料、哪個比較適合外推?
+> Estimate the biomass at **150 days**, using the following three models. You may use MATLAB software or other programming tools to find the parameters of each model. **Compare and discuss** the three models. Which model do you think is more appropriate to **describe the data**? Which model is more reasonable for the **estimation of the biomass at 150 days**?
 >
-> - **Model A**: $\displaystyle B = \frac{a}{1 + b\,e^{-ct}}$
-> - **Model B**: $B = a + b\,t^c$
-> - **Model C**: $\displaystyle B = \frac{a}{(1 + b\,e^{-ct})^{1/d}}$
+> $$
+> \text{Model A:}\quad B = \frac{a}{1 + b\,e^{-ct}}
+> $$
+>
+> $$
+> \text{Model B:}\quad B = a + b\,x^c
+> $$
+>
+> $$
+> \text{Model C:}\quad B = \frac{a}{[\,1 + b\,e^{-ct}\,]^{1/d}}
+> $$
+>
+> *(註:Model B 的 $x$ 即為時間 $t$,以下統一寫 $t$。)*
 
 ---
 
@@ -79,7 +93,9 @@ $$
 
 (Model C 的 $d$ 在這份資料上想往 $0$ 走——也就是 Gompertz 極限,右偏的 S 形;我們把它限制在 $d \geq 0.2$ 以保住可解讀性。$d=0.2$ 仍然是個顯著的不對稱 S。)
 
-> 圖在 `fig1_model_compare.png`。
+![三個模型的擬合與外推](fig1_model_compare_clean.png)
+
+> 圖由 [`fit_models_edu.py`](./fit_models_edu.py) 產出(乾淨英文版,附詳細教學註解);中文版 `fig1_model_compare.png` 由 [`fit_models.py`](./fit_models.py) 產出。
 
 ### 2.3 解讀數值
 
@@ -121,7 +137,76 @@ $$
 
 ---
 
-## 4. 對照講義
+## 4. 用統計方法把 §3.3 的「直覺判斷」變成正式回答
+
+§3 已經把結論講完了——這節是把「Model C 比 A 顯著好嗎?」、「Model C 雖然多了一個參數,值不值得這個複雜度?」這兩個問題,用**講義 §8.4 教的統計工具**正式回答。研究所層次的答卷推薦補這一段。
+
+### 4.1 F-test for nested models:Model A vs Model C
+
+**為什麼可以用 F-test?** Model A 是 Model C 的特例:**當 $d = 1$ 時 Model C 退化成 Model A**。兩個模型嵌套(nested)的時候,可以用 F-test 嚴格回答「多一個參數值不值得」。對應 [08-模型驗證.md §8.4](../../redesigned/08-模型驗證.md)。
+
+**虛無假設**:$H_0: d = 1$(即「Model A 就夠了」)。
+
+**統計量**:
+
+$$
+F \;=\; \frac{(\mathrm{RSS}_A - \mathrm{RSS}_C)\,/\,(p_C - p_A)}{\mathrm{RSS}_C\,/\,(n - p_C)}
+$$
+
+代入(`fit_models_edu.py` 跑出):
+
+| 量 | 值 |
+|---|---:|
+| $\mathrm{RSS}_A$ | $0.2382$ |
+| $\mathrm{RSS}_C$ | $0.0626$ |
+| $p_A,\; p_C$ | $3,\;4$ |
+| $n$ | $11$ |
+| $F_{1,7}$ | $\mathbf{19.64}$ |
+| $F_{1,7,\,0.05}$ 臨界值 | $5.59$ |
+| p-value | $\mathbf{0.0030}$ |
+
+**結論**:$F = 19.64 \gg 5.59$($p = 0.003 < 0.05$),**拒絕 $H_0$**——**Model C 顯著比 Model A 好**。多出的那個參數 $d$ 不是「為擬合而擬合」,而是真的在描述資料的不對稱性。
+
+### 4.2 AIC:把 B 也拉進來一起比
+
+F-test 只能比 nested 的兩個模型,**Model B 跟 A、C 都不嵌套**——這時用 **AIC**(Akaike Information Criterion,[08-模型驗證.md §8.4.4](../../redesigned/08-模型驗證.md))。AIC 對 nested 與否沒要求,直接比就好。
+
+$$
+\mathrm{AIC} \;=\; n\,\ln(\mathrm{RSS}/n) \;+\; 2K, \qquad K = (\text{參數數}) + 1
+$$
+
+| Model | 參數 $K$ | $\mathrm{AIC}$ | $\Delta_i = \mathrm{AIC}_i - \mathrm{AIC}_{\min}$ |
+|---|---:|---:|---:|
+| A (logistic) | 4 | $-34.16$ | $12.70$ |
+| B (power)    | 4 | $-21.24$ | $25.62$ |
+| **C (Richards)** | **5** | $\mathbf{-46.86}$ | $\mathbf{0.00}$ |
+
+**Burnham–Anderson 經驗法則**:$\Delta_i > 10$ 表示「該模型幾乎沒有支持」。
+
+- Model A 的 $\Delta = 12.7 > 10$ → 雖然 in-sample 配適尚可,但**從 AIC 角度幾乎不支持**。
+- Model B 的 $\Delta = 25.6$ → 徹底出局。
+- Model C 拿到 $\mathrm{AIC}_{\min}$ → **就 information criterion 而言是最佳模型**。
+
+### 4.3 兩個檢定告訴你什麼?(以及它們為什麼一致)
+
+F-test 與 AIC 的結論都指向 **Model C**,**這不是巧合**——兩者背後共享「對數似然」的同一個基底,只是 F-test 走「假設檢定」框架(yes/no),AIC 走「資訊損失」框架(誰最小)。
+
+- F-test 用法:**比兩個 nested 模型**,而且結果就是傳統的 p-value(可寫進論文)。
+- AIC 用法:**比任意一組模型**,結果是相對排名(配上 $\Delta_i$ 給支持強度)。
+
+**對 P3 答卷**:**寫 F-test 在這題最名正言順**——因為 Model A ⊂ Model C 是教科書級的 nested 情境。**AIC 是附加分**——它把 Model B 也納入了同一個比較尺度。
+
+### 4.4 不建議在 P3 寫的工具
+
+| 工具 | 為什麼不推薦 |
+|---|---|
+| **Paired t-test** | 只測「殘差均值是不是零」,不能比模型誰好;且 $n=11$ power 太低,容易把壞模型放過(Mayer & Butler 1993 證實) |
+| **Theil's $U$** | 設計用途是「**跨資料集**做比較」(不同量級);這題是同一筆資料比模型,用 RMSE/AIC 更直接 |
+| **1:1 回歸 $F$ 檢定** | 測「斜率=1、截距=0」是針對 model-vs-observation 散點圖,適合**單一模型驗證**;這題是「**三個模型比好壞**」,場景不同 |
+
+---
+
+## 5. 對照講義
 
 | 題目要素 | 講義來源 |
 |---|---|
@@ -129,24 +214,38 @@ $$
 | 線性化(對 Model B 取 log 做初值) | [07-參數估計.md §7.2](../../redesigned/07-參數估計.md) |
 | 非線性 LSQ + 初值選擇 | [07-參數估計.md §7.3](../../redesigned/07-參數估計.md) |
 | 模型驗證三層架構 | [08-模型驗證.md](../../redesigned/08-模型驗證.md) |
+| F-test for nested models(Model A vs C) | [08-模型驗證.md §8.4](../../redesigned/08-模型驗證.md) |
+| AIC + Burnham–Anderson 經驗法則 | [08-模型驗證.md §8.4.4](../../redesigned/08-模型驗證.md) |
 | Richards / generalized logistic | 課程外補充,從 Model A 延伸 |
 
 ---
 
-## 5. 答題建議
+## 6. 答題建議
 
 1. **不要急著三個都全力擬合**——先把「形狀」分析寫下來(本文 §1)。閱卷者要看你**看得出 Model B 沒有上限**。
 2. **挑初值要寫**——課堂上 LM 的非線性 LSQ 不會自動找到全局最佳,你的初值選擇要說清楚。
 3. **比較 RMSE 時要對 in-sample 區間說**——Model C 通常 RMSE 最小,但**多用了一個參數**——適時提 Occam's razor。
 4. **150 天的外推一定要算數字**——這是這題的高潮:Model B 給出顯著不合理的值。
 5. **結論建議分兩條**:「描述」用 C,「外推/估計」用 A 或 C(視 Occam 偏好)。**不要只給一個答案**——這題明顯在考你能否區分這兩種用途。
+6. **想拿研究所層次的滿分**:在 §3 的「直覺結論」之上,**正式跑 F-test for nested(A vs C)+ AIC(三者一起比)**,引用 [08-模型驗證.md §8.4](../../redesigned/08-模型驗證.md);這就是本文 §4 的內容。
 
 ---
 
 ## 附錄:跑擬合
 
+兩個版本,內容互補:
+
 ```bash
 conda activate bsma-pdf
 cd example-questions/2020-p3-algae-biomass-fit
-python fit_models.py
+
+# 原始版(中文標籤的圖,輕量註解)
+python fit_models.py            # → fig1_model_compare.png
+
+# 教育版(英文乾淨圖,逐行教學註解;額外印 F-test/AIC 數值)
+python fit_models_edu.py        # → fig1_model_compare_clean.png
 ```
+
+**何時用哪一個**:
+- **`fit_models.py`** — 想看原版中文圖,或當「最簡可用」程式碼參考。
+- **`fit_models_edu.py`** — 想了解「**為什麼**這樣寫」(挑初值的三招、Model C 為何要設 bounds、AIC 公式裡的 $K$ 為什麼要 +1 算 σ² 等等),或要嵌入英文圖到 markdown / 簡報。F-test 跟 AIC 的計算也只在這版裡。
