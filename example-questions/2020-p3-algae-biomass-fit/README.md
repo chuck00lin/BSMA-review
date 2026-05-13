@@ -45,7 +45,7 @@ $$
 B(t) = a + b\,t^c
 $$
 
-- $t \to 0$:$B \to a$(若 $c > 0$)。
+- $t \to 0$: $B \to a$(若 $c > 0$)。
 - $t \to \infty$:**$B \to \infty$**(若 $b, c > 0$),沒有上限。
 - 行為類似 $\sqrt{t}$ 或更猛(看 $c$):**永遠在長**。
 - **沒有反曲點**,所以**不會 S 形**。如果資料真的有 S 形(早期慢、中期快、後期慢),Model B 就抓不到「後期慢」這一段。
@@ -76,11 +76,11 @@ $$
 
 - **Model A**:
   - $a \approx 5.5$(略高於最大觀測值)。
-  - 從 $B(t \to 0) \approx a/(1+b) \to 0$:$b$ 很大(幾百到幾千)。試 $b=1000$。
-  - 反曲點大約在 $t \approx 30$:$\ln b / c \approx 30 \Rightarrow c \approx \ln(1000)/30 \approx 0.23$。
+  - 從 $B(t \to 0) \approx a/(1+b) \to 0$: $b$ 很大(幾百到幾千)。試 $b=1000$。
+  - 反曲點大約在 $t \approx 30$: $\ln b / c \approx 30 \Rightarrow c \approx \ln(1000)/30 \approx 0.23$。
 - **Model B**:
   - $a$ 接近 0(早期值極小)。
-  - 取 log:$\log B \approx \log b + c \log t$ ——對 $(\log t, \log B)$ 做線性回歸做為初值。會得到 $c \approx 4.5$,$b \approx 10^{-7}$。
+  - 取 log:$\log B \approx \log b + c \log t$ ——對 $(\log t, \log B)$ 做線性回歸做為初值。會得到 $c \approx 4.5$, $b \approx 10^{-7}$。
 - **Model C**:用 Model A 的擬合值 + $d = 1$ 當初值,讓非線性 LSQ 慢慢偏離 $d=1$ 來改進。
 
 ### 2.2 擬合結果(`fit_models.py` 跑出來)

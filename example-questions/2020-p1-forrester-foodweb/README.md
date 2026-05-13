@@ -84,10 +84,10 @@
 | 種類 | 名稱 | 說明 |
 |---|---|---|
 | 驅動變數 ◇ | Month / Season | 月份索引 1–12 |
-| 輔助 ○ | $\mathbb{1}_{\text{fall}}(t)$ | 秋季指示;F5、F6 用 |
-| 輔助 ○ | $\mathbb{1}_{\text{non-fall}}(t)$ | 非秋季指示;F9–F12 用 |
+| 輔助 ○ | $\mathbf{1}_{\text{fall}}(t)$ | 秋季指示;F5、F6 用 |
+| 輔助 ○ | $\mathbf{1}_{\text{non-fall}}(t)$ | 非秋季指示;F9–F12 用 |
 | 輔助 ○ | $G = P_S + P_L$ | 總植被量(資訊流) |
-| 輔助 ○ | $\phi(G) = 1/(1 + G/G_0)$ | bare-ground 增益因子,$G$ 低時 $\phi \to 1$,$G$ 高時 $\phi \to 0$;F13 用 |
+| 輔助 ○ | $\phi(G) = 1/(1 + G/G_0)$ | bare-ground 增益因子,$G$ 低時 $\phi \to 1$, $G$ 高時 $\phi \to 0$;F13 用 |
 | 參數 ○─ | $r_S, K_S, \alpha_{SL}$ | 小種子植物 logistic |
 | 參數 ○─ | $r_L, K_L, \alpha_{LS}$ | 大種子植物 logistic |
 | 參數 ○─ | $\sigma_S, \sigma_L$ | 秋季產種子率 |
@@ -139,9 +139,9 @@
 ```
 
 **重點**:
-- 所有「fall / non-fall 開關」都從同一個 ◇ Season 經 $\mathbb{1}_{\text{fall}}$、$\mathbb{1}_{\text{non-fall}}$ 兩個輔助變數送資訊流出去(§3.2 圖 3.2 標準畫法)。
+- 所有「fall / non-fall 開關」都從同一個 ◇ Season 經 $\mathbf{1}_{\text{fall}}$、 $\mathbf{1}_{\text{non-fall}}$ 兩個輔助變數送資訊流出去(§3.2 圖 3.2 標準畫法)。
 - $\phi(G) = 1/(1+G/G_0)$ 是「**bare-ground 增益**」——資訊流從兩個植物 stock $P_S, P_L$ 加總後算出,送進 F13 的閥。這對應原題「birds are more effective when bare ground is high」。
-- **沒有 carnivore**——沒有任何流從 $A$、$M$、$B$ 進到另一個動物 stock。
+- **沒有 carnivore**——沒有任何流從 $A$、 $M$、 $B$ 進到另一個動物 stock。
 
 ---
 
@@ -159,30 +159,30 @@ $$
 \frac{dP_L}{dt} = r_L\,P_L\left(1 - \frac{P_L + \alpha_{LS} P_S}{K_L}\right)
 $$
 
-> 「Consumption of seeds reduces plant growth rates」可以**用一個額外負項**(直接從 $r_S, r_L$ 減去 $\sigma_S, \sigma_L \mathbb{1}_{\text{fall}}$ 抽走的部分),也可以**設計成 $r$ 已內含繁殖代價**——兩種都對,寫答案時要說明你的選擇(§3.3.3 的「設計選擇」)。
+> 「Consumption of seeds reduces plant growth rates」可以**用一個額外負項**(直接從 $r_S, r_L$ 減去 $\sigma_S, \sigma_L \mathbf{1}_{\text{fall}}$ 抽走的部分),也可以**設計成 $r$ 已內含繁殖代價**——兩種都對,寫答案時要說明你的選擇(§3.3.3 的「設計選擇」)。
 
 ### 3.2 兩個 seed pool
 
 $$
-\frac{dS_S}{dt} = \underbrace{\sigma_S P_S \cdot \mathbb{1}_{\text{fall}}}_{\text{F5: 秋季產出}} - \underbrace{(a_{AS} A + m_{MS} M)\,S_S \cdot \mathbb{1}_{\text{non-fall}}}_{\text{F9 + F12: 被吃}} - \underbrace{\mu_S\,S_S}_{\text{F7: 耗損}}
+\frac{dS_S}{dt} = \underbrace{\sigma_S P_S \cdot \mathbf{1}_{\text{fall}}}_{\text{F5: 秋季產出}} - \underbrace{(a_{AS} A + m_{MS} M)\,S_S \cdot \mathbf{1}_{\text{non-fall}}}_{\text{F9 + F12: 被吃}} - \underbrace{\mu_S\,S_S}_{\text{F7: 耗損}}
 $$
 
 $$
-\frac{dS_L}{dt} = \underbrace{\sigma_L P_L \cdot \mathbb{1}_{\text{fall}}}_{\text{F6: 秋季產出}} - \underbrace{(a_{AL} A + m_{ML} M)\,S_L \cdot \mathbb{1}_{\text{non-fall}}}_{\text{F10 + F11: ant/mammal 吃}} - \underbrace{b_L B\,\phi(G)\,S_L}_{\text{F13: 鳥吃}} - \underbrace{\mu_L\,S_L}_{\text{F8: 耗損}}
+\frac{dS_L}{dt} = \underbrace{\sigma_L P_L \cdot \mathbf{1}_{\text{fall}}}_{\text{F6: 秋季產出}} - \underbrace{(a_{AL} A + m_{ML} M)\,S_L \cdot \mathbf{1}_{\text{non-fall}}}_{\text{F10 + F11: ant/mammal 吃}} - \underbrace{b_L B\,\phi(G)\,S_L}_{\text{F13: 鳥吃}} - \underbrace{\mu_L\,S_L}_{\text{F8: 耗損}}
 $$
 
-> **注意 F13 不被 $\mathbb{1}_{\text{non-fall}}$ 限制**——鳥可以全年吃,但效率被 $\phi(G)$ 調節。原題「more effective when bare ground is high」就是 $\phi(G)$ 在 $G$ 低時放大。
+> **注意 F13 不被 $\mathbf{1}_{\text{non-fall}}$ 限制**——鳥可以全年吃,但效率被 $\phi(G)$ 調節。原題「more effective when bare ground is high」就是 $\phi(G)$ 在 $G$ 低時放大。
 
 ### 3.3 螞蟻
 
 $$
-\frac{dA}{dt} = \underbrace{\varepsilon_A\,(a_{AS} S_S + a_{AL} S_L)\,A\,\mathbb{1}_{\text{non-fall}}}_{\text{F14: 從吃進的種子轉換為個體}} - \underbrace{d_A\,A}_{\text{F17: 自然死亡}}
+\frac{dA}{dt} = \underbrace{\varepsilon_A\,(a_{AS} S_S + a_{AL} S_L)\,A\,\mathbf{1}_{\text{non-fall}}}_{\text{F14: 從吃進的種子轉換為個體}} - \underbrace{d_A\,A}_{\text{F17: 自然死亡}}
 $$
 
 ### 3.4 小型哺乳類
 
 $$
-\frac{dM}{dt} = \underbrace{\varepsilon_M\,(m_{ML} S_L + m_{MS} S_S)\,M\,\mathbb{1}_{\text{non-fall}}}_{\text{F15: 從吃進的種子轉換}} - \underbrace{d_M\,M}_{\text{F18: 自然死亡}}
+\frac{dM}{dt} = \underbrace{\varepsilon_M\,(m_{ML} S_L + m_{MS} S_S)\,M\,\mathbf{1}_{\text{non-fall}}}_{\text{F15: 從吃進的種子轉換}} - \underbrace{d_M\,M}_{\text{F18: 自然死亡}}
 $$
 
 ### 3.5 鳥
@@ -194,7 +194,7 @@ $$
 ### 3.6 輔助關係
 
 $$
-\mathbb{1}_{\text{fall}}(t) = \begin{cases} 1 & \text{若 month}(t) \in \{9,10,11\} \\ 0 & \text{其他} \end{cases}, \qquad \mathbb{1}_{\text{non-fall}} = 1 - \mathbb{1}_{\text{fall}}
+\mathbf{1}_{\text{fall}}(t) = \begin{cases} 1 & \text{若 month}(t) \in \{9,10,11\} \\ 0 & \text{其他} \end{cases}, \qquad \mathbf{1}_{\text{non-fall}} = 1 - \mathbf{1}_{\text{fall}}
 $$
 
 $$
@@ -217,7 +217,7 @@ $$
 | Birds 效率隨 bare ground 升高 | $\phi(G) = 1/(1+G/G_0)$:植被多時 $\phi$ 小,植被少時 $\phi$ 大 |
 | 鳥和哺乳類**都不吃螞蟻** | **圖上沒有 $A \to B$ 或 $A \to M$ 的物質流** |
 | 兩種植物競爭空間 | Gause $\alpha_{SL}, \alpha_{LS}$ 交互項 |
-| 秋季產種子,其他月份種子被吃 | F5/F6 由 $\mathbb{1}_{\text{fall}}$ 開;F9–F12 由 $\mathbb{1}_{\text{non-fall}}$ 開 |
+| 秋季產種子,其他月份種子被吃 | F5/F6 由 $\mathbf{1}_{\text{fall}}$ 開;F9–F12 由 $\mathbf{1}_{\text{non-fall}}$ 開 |
 | 20 yr, $\Delta t = 1$ 月 | 240 個積分步 |
 
 ---
