@@ -200,36 +200,36 @@ $$
 二次公式取正根(因為要 $u > 0$):
 
 $$
-u^* = \frac{1 + \sqrt{1 + 4\beta/\gamma}}{2},\qquad v^* = u^*.
+u^\ast = \frac{1 + \sqrt{1 + 4\beta/\gamma}}{2},\qquad v^\ast = u^\ast.
 $$
 
-**為什麼 $u^* > 1$ 必然成立?** 因為 $\beta, \gamma > 0$,所以 $\sqrt{1 + 4\beta/\gamma} > 1$,因此
+**為什麼 $u^\ast > 1$ 必然成立?** 因為 $\beta, \gamma > 0$,所以 $\sqrt{1 + 4\beta/\gamma} > 1$,因此
 
 $$
-u^* > \frac{1 + 1}{2} = 1.
+u^\ast > \frac{1 + 1}{2} = 1.
 $$
 
-亦即 $I^* = I_0 v^* > I_0$——**平衡時食草者一定超過閾值**,系統永遠落在 overgrazing 那一側。基線補充 $\beta$ 的作用就是「**為了維持品質,植物得不斷補回被啃掉的部分**」,基線補充強度決定了 $u^*$ 高低。
+亦即 $I^\ast = I_0 v^\ast > I_0$——**平衡時食草者一定超過閾值**,系統永遠落在 overgrazing 那一側。基線補充 $\beta$ 的作用就是「**為了維持品質,植物得不斷補回被啃掉的部分**」,基線補充強度決定了 $u^\ast$ 高低。
 
 ### 4.2 Jacobian:穩定性分析(§9.4)
 
-在 $(u^*, v^*) = (u^*, u^*)$ 算 Jacobian:
+在 $(u^\ast, v^\ast) = (u^\ast, u^\ast)$ 算 Jacobian:
 
 $$
 J = \begin{pmatrix}
 \partial_u(\beta - \gamma u(v-1)) & \partial_v(\beta - \gamma u(v-1)) \\
 \partial_u(v(1 - v/u)) & \partial_v(v(1 - v/u))
-\end{pmatrix}_{(u^*, u^*)}
+\end{pmatrix}_{(u^\ast, u^\ast)}
 = \begin{pmatrix}
--\gamma(u^* - 1) & -\gamma u^* \\
+-\gamma(u^\ast - 1) & -\gamma u^\ast \\
 1 & -1
 \end{pmatrix}
 $$
 
-(代入 $v = u = u^*$:$\partial_u(v^2/u) \cdot u^*/u^{*2} = 1$,$\partial_v(1 - 2v/u) = -1$。)
+(下方那一列怎麼算的:$v(1 - v/u) = v - v^2/u$,所以 $\partial_u = v^2/u^2$、$\partial_v = 1 - 2v/u$。代 $v = u = u^\ast$ 進去分別得 $1$ 與 $-1$。)
 
-- **Trace** $= -\gamma(u^* - 1) - 1 < 0$(因為 $u^* > 1$ 與 $\gamma > 0$)。
-- **Determinant** $= \gamma(u^* - 1) \cdot 1 + \gamma u^* = \gamma(2u^* - 1) > 0$(因為 $u^* > 1$)。
+- **Trace** $= -\gamma(u^\ast - 1) - 1 < 0$(因為 $u^\ast > 1$ 與 $\gamma > 0$)。
+- **Determinant** $= \gamma(u^\ast - 1) \cdot 1 + \gamma u^\ast = \gamma(2u^\ast - 1) > 0$(因為 $u^\ast > 1$)。
 
 Trace 負、Determinant 正 → **永遠是穩定平衡**(對任意 $\beta, \gamma > 0$)。
 
@@ -237,18 +237,18 @@ Trace 負、Determinant 正 → **永遠是穩定平衡**(對任意 $\beta, \gam
 - $\Delta < 0$ → 複數特徵值 → **穩定 spiral**(軌跡螺旋進入)
 - $\Delta > 0$ → 實數特徵值 → **穩定 node**(軌跡直接收斂)
 
-在 §4 的圖中我們挑 $(\beta, \gamma) = (2, 1)$,$u^* = 2$,$\text{Tr} = -2$,$\det = 3$,$\Delta = 4 - 12 = -8 < 0$ → **穩定 spiral**。這就是相位圖看到軌跡繞圈進來的原因。
+在 §4 的圖中我們挑 $(\beta, \gamma) = (2, 1)$,$u^\ast = 2$,$\text{Tr} = -2$,$\det = 3$,$\Delta = 4 - 12 = -8 < 0$ → **穩定 spiral**。這就是相位圖看到軌跡繞圈進來的原因。
 
 ### 4.3 Nullclines(§9.3.3)
 
 - **$v$-nullcline**($dv/d\tau = 0$):$v = u$(45° 線)和 $v = 0$ 軸。
 - **$u$-nullcline**($du/d\tau = 0$):$u(v-1) = \beta/\gamma$,在 $v > 1$ 區域是雙曲線形狀的曲線。
 
-兩條 nullcline 的交點即為 $(u^*, v^*)$——在相位圖上一眼可見。
+兩條 nullcline 的交點即為 $(u^\ast, v^\ast)$——在相位圖上一眼可見。
 
 ### 4.4 步入平衡的時序(time evolution)
 
-從不同初值開始,$u, v$ 都會收斂到 $(u^*, v^*)$。**收斂方式**(spiral vs node)由 §4.2 算出的判別式 $\Delta$ 決定;我們挑的 $(\beta, \gamma) = (2, 1)$ 對應 spiral,所以相位圖看到的軌跡會繞圈進來。
+從不同初值開始,$u, v$ 都會收斂到 $(u^\ast, v^\ast)$。**收斂方式**(spiral vs node)由 §4.2 算出的判別式 $\Delta$ 決定;我們挑的 $(\beta, \gamma) = (2, 1)$ 對應 spiral,所以相位圖看到的軌跡會繞圈進來。
 
 ![Phase portrait + time series for the dimensionless plant–herbivore model](fig1_phase_portrait_clean.png)
 
@@ -273,7 +273,7 @@ Trace 負、Determinant 正 → **永遠是穩定平衡**(對任意 $\beta, \gam
 1. **第 1 小題先說「生物意義」再說「數學意義」**——閱卷者最在乎你會不會把「induced defense」這個故事抓出來,把 $I_0$ 那條臨界線講清楚。
 2. **無因次化挑尺度時,先看「題目本身有沒有送你尺度」**——$I_0$ 就是天上掉下來的,$1/K_3$ 也是很自然的時間單位。剩下 $q$ 的尺度從 logistic 對應($q = K_4 I$)推一下就出來。
 3. **檢查 π 定理數對不對**:5 個參數 - 3 個量綱 = 2 個無因次參數。**寫到答案紙上**——加分點。
-4. **如果有時間**,把平衡點 $(u^*, v^*)$ 算出來,$\gamma u^2 - \gamma u - \beta = 0$ 是一行的二次方程。
+4. **如果有時間**,把平衡點 $(u^\ast, v^\ast)$ 算出來,$\gamma u^2 - \gamma u - \beta = 0$ 是一行的二次方程。
 
 ---
 
