@@ -94,9 +94,11 @@ $$
 
 | 變數 | 選的尺度 | 理由 |
 |---|---|---|
-| $t$ | $1/K_3$ | 食草者內生增長率的「時間單位」,自然得很 |
+| $t$ | $1/K_3$ | $K_3$ 是食草者唯一的「速率參數」,$1/K_3$ 就是天然時間單位 |
 | $I$ | $I_0$ | 題目本身就給了一個臨界密度,**它就是天然的尺度** |
-| $q$ | $K_4 I_0$ | 在平衡時 $I = q/K_4$,代回去 $q = K_4 I$,當 $I \sim I_0$ 時 $q \sim K_4 I_0$ — 這是 logistic 邏輯下「對應 $I_0$ 的品質」 |
+| $q$ | $K_4 I_0$ | 見下方推導 |
+
+**$q$ 的尺度為什麼是 $K_4 I_0$?** 看 $dI/dt$ 的方程式:當食草者方程式 $dI/dt = 0$,得 $1 - K_4 I/q = 0$,即 $I = q/K_4$。**這就是給定品質 $q$ 下食草者的「承載力」**——換句話說 $q/K_4$ 和 $I$ 必須同尺度。我們已經選 $[I] = I_0$,**為了讓兩邊一致**,就得選 $[q] = K_4 \cdot [I] = K_4 I_0$。這不是巧合;這是**讓 $v = u$ 的 nullcline 在無因次座標下變成 45° 線**的根本原因(下節 §4 會看到)。
 
 定義新變數:
 
@@ -108,45 +110,59 @@ $$
 
 **對 $v$**(比較容易,先做):
 
-$$
-\frac{dI}{dt} = I_0 \cdot K_3 \cdot \frac{dv}{d\tau}
-$$
-
-代入原式:
+**Step 1:左邊用 chain rule 轉成 $\tau$ 的導數**。從 $I = I_0 v$ 和 $\tau = K_3 t$:
 
 $$
-I_0 K_3 \frac{dv}{d\tau} = K_3 (I_0 v)\left(1 - \frac{K_4 (I_0 v)}{K_4 I_0 u}\right) = K_3 I_0 v \left(1 - \frac{v}{u}\right)
+\frac{dI}{dt} \;=\; \frac{d(I_0 v)}{dt} \;=\; I_0\,\frac{dv}{dt} \;=\; I_0 \cdot \frac{dv}{d\tau}\cdot\underbrace{\frac{d\tau}{dt}}_{=\,K_3} \;=\; I_0\, K_3\, \frac{dv}{d\tau}
 $$
 
-兩邊除掉 $K_3 I_0$:
+**Step 2:右邊把 $I, q$ 全部換成 $v, u$**:
+
+$$
+K_3 I\left(1 - \frac{K_4 I}{q}\right) \;=\; K_3 (I_0 v)\left(1 - \frac{K_4 (I_0 v)}{K_4 I_0 u}\right) \;=\; K_3 I_0\, v \left(1 - \frac{v}{u}\right)
+$$
+
+注意 $K_4 (I_0 v) / (K_4 I_0 u) = v/u$——**這就是 §3.1 「兩邊尺度相配」的紅利**:$K_4$ 和 $I_0$ 都完美抵消。
+
+**Step 3:兩邊除掉 $K_3 I_0$,參數全部消光**:
 
 $$
 \boxed{\;\frac{dv}{d\tau} = v\left(1 - \frac{v}{u}\right)\;}
 $$
 
-——**完全沒有剩下任何參數**。
+**為什麼一個參數都沒剩?** 因為 $v$-方程式只用到 $K_3$(時間尺度)和 $K_4$(承載力轉換),而我們**選尺度時就把這兩個吸進 $\tau$ 與 $u$ 的定義裡**。剩下的方程式只剩「結構」,沒有「數值」——這正是無因次化最漂亮的地方。
 
 **對 $u$**:
 
-$$
-\frac{dq}{dt} = K_4 I_0 \cdot K_3 \cdot \frac{du}{d\tau}
-$$
-
-代入原式:
+**Step 1:左邊一樣用 chain rule**。從 $q = K_4 I_0 u$ 和 $\tau = K_3 t$:
 
 $$
-K_3 K_4 I_0 \frac{du}{d\tau} = K_1 - K_2 (K_4 I_0 u)(I_0 v - I_0) = K_1 - K_2 K_4 I_0^2\, u\,(v-1)
+\frac{dq}{dt} \;=\; K_4 I_0\,\frac{du}{dt} \;=\; K_4 I_0 \cdot K_3 \cdot \frac{du}{d\tau}
 $$
 
-兩邊除以 $K_3 K_4 I_0$:
+**Step 2:右邊換掉 $q, I$**。注意 $(I - I_0) = (I_0 v - I_0) = I_0(v - 1)$:
 
 $$
-\frac{du}{d\tau} = \underbrace{\frac{K_1}{K_3 K_4 I_0}}_{\equiv\,\beta} \;-\; \underbrace{\frac{K_2 I_0}{K_3}}_{\equiv\,\gamma}\, u\,(v-1)
+K_1 - K_2\, q\,(I - I_0) \;=\; K_1 - K_2\,(K_4 I_0 u)\,(I_0 v - I_0) \;=\; K_1 - K_2 K_4 I_0^2\, u\,(v-1)
+$$
+
+合起來:
+
+$$
+K_3 K_4 I_0\, \frac{du}{d\tau} = K_1 - K_2 K_4 I_0^2\, u\,(v-1)
+$$
+
+**Step 3:兩邊除以 $K_3 K_4 I_0$**(注意第二項分子分母會抵掉一個 $K_4$):
+
+$$
+\frac{du}{d\tau} \;=\; \underbrace{\frac{K_1}{K_3 K_4 I_0}}_{\equiv\,\beta} \;-\; \underbrace{\frac{K_2 \cancel{K_4} I_0^{\cancel{2}}}{K_3 \cancel{K_4} \cancel{I_0}}}_{=\,K_2 I_0/K_3\,\equiv\,\gamma}\, u\,(v-1)
 $$
 
 $$
 \boxed{\;\frac{du}{d\tau} = \beta - \gamma\, u\,(v-1)\;}
 $$
+
+**這次有兩個參數剩下來**——因為 $q$-方程式用到 $K_1$ 與 $K_2$ 這兩個「植物動力學參數」,它們沒被任何一個尺度吸收進去,所以以「強度比值」的形式($\beta, \gamma$)留下來。
 
 ### 3.3 結果
 
@@ -171,27 +187,68 @@ $$
 
 設兩個導數同時 $= 0$:
 
-- $\dfrac{dv}{d\tau} = 0$ → $v = 0$ 或 $v = u$。
-- 取**非零解** $v = u$,代入 $\dfrac{du}{d\tau} = 0$:
-  $$
-  \beta = \gamma\, u\,(u - 1) \;\Rightarrow\; \gamma\, u^2 - \gamma\, u - \beta = 0
-  $$
-  $$
-  u^* = \frac{1 + \sqrt{1 + 4\beta/\gamma}}{2},\qquad v^* = u^*.
-  $$
+**$\dfrac{dv}{d\tau} = 0$ 給兩種可能**:$v = 0$ 或 $v = u$。
+- $v = 0$ 是**無食草者**的退化解,生物上不在乎(沒蟲就沒這個問題)。
+- 取**非零解** $v = u$。
 
-**直觀**:$u^* > 1$(食草者超過閾值 $I_0$)→ 在 induced/overgrazed 的分界**右邊**。注意這裡 $u^* > 1$ 對應 $I^* > I_0$,**也就是說平衡時 $v-1 > 0$,品質的「交互作用項」是負的**——是品質的拉力。基線補充 $\beta$ 剛好抵消這個拉力,維持穩定。
+代入 $\dfrac{du}{d\tau} = 0$:
 
-### 4.2 Nullclines(§9.3.3)
+$$
+\beta - \gamma\, u\,(u - 1) = 0 \;\Rightarrow\; \gamma\, u^2 - \gamma\, u - \beta = 0
+$$
+
+二次公式取正根(因為要 $u > 0$):
+
+$$
+u^* = \frac{1 + \sqrt{1 + 4\beta/\gamma}}{2},\qquad v^* = u^*.
+$$
+
+**為什麼 $u^* > 1$ 必然成立?** 因為 $\beta, \gamma > 0$,所以 $\sqrt{1 + 4\beta/\gamma} > 1$,因此
+
+$$
+u^* > \frac{1 + 1}{2} = 1.
+$$
+
+亦即 $I^* = I_0 v^* > I_0$——**平衡時食草者一定超過閾值**,系統永遠落在 overgrazing 那一側。基線補充 $\beta$ 的作用就是「**為了維持品質,植物得不斷補回被啃掉的部分**」,基線補充強度決定了 $u^*$ 高低。
+
+### 4.2 Jacobian:穩定性分析(§9.4)
+
+在 $(u^*, v^*) = (u^*, u^*)$ 算 Jacobian:
+
+$$
+J = \begin{pmatrix}
+\partial_u(\beta - \gamma u(v-1)) & \partial_v(\beta - \gamma u(v-1)) \\
+\partial_u(v(1 - v/u)) & \partial_v(v(1 - v/u))
+\end{pmatrix}_{(u^*, u^*)}
+= \begin{pmatrix}
+-\gamma(u^* - 1) & -\gamma u^* \\
+1 & -1
+\end{pmatrix}
+$$
+
+(代入 $v = u = u^*$:$\partial_u(v^2/u) \cdot u^*/u^{*2} = 1$,$\partial_v(1 - 2v/u) = -1$。)
+
+- **Trace** $= -\gamma(u^* - 1) - 1 < 0$(因為 $u^* > 1$ 與 $\gamma > 0$)。
+- **Determinant** $= \gamma(u^* - 1) \cdot 1 + \gamma u^* = \gamma(2u^* - 1) > 0$(因為 $u^* > 1$)。
+
+Trace 負、Determinant 正 → **永遠是穩定平衡**(對任意 $\beta, \gamma > 0$)。
+
+**穩定的「型」**:由判別式 $\Delta = (\text{Tr})^2 - 4\det$ 決定。
+- $\Delta < 0$ → 複數特徵值 → **穩定 spiral**(軌跡螺旋進入)
+- $\Delta > 0$ → 實數特徵值 → **穩定 node**(軌跡直接收斂)
+
+在 §4 的圖中我們挑 $(\beta, \gamma) = (2, 1)$,$u^* = 2$,$\text{Tr} = -2$,$\det = 3$,$\Delta = 4 - 12 = -8 < 0$ → **穩定 spiral**。這就是相位圖看到軌跡繞圈進來的原因。
+
+### 4.3 Nullclines(§9.3.3)
 
 - **$v$-nullcline**($dv/d\tau = 0$):$v = u$(45° 線)和 $v = 0$ 軸。
 - **$u$-nullcline**($du/d\tau = 0$):$u(v-1) = \beta/\gamma$,在 $v > 1$ 區域是雙曲線形狀的曲線。
 
-兩條 nullcline 的交點即為 $(u^*, v^*)$。
+兩條 nullcline 的交點即為 $(u^*, v^*)$——在相位圖上一眼可見。
 
-### 4.3 步入平衡的時序(time evolution)
+### 4.4 步入平衡的時序(time evolution)
 
-從不同初值開始,$u, v$ 都會收斂到 $(u^*, v^*)$ — 為穩定螺旋(複根)或穩定節點(實根),取決於 $(\beta, \gamma)$ 是否讓 Jacobian 的判別式 $< 0$。
+從不同初值開始,$u, v$ 都會收斂到 $(u^*, v^*)$。**收斂方式**(spiral vs node)由 §4.2 算出的判別式 $\Delta$ 決定;我們挑的 $(\beta, \gamma) = (2, 1)$ 對應 spiral,所以相位圖看到的軌跡會繞圈進來。
 
 ![Phase portrait + time series for the dimensionless plant–herbivore model](fig1_phase_portrait_clean.png)
 
