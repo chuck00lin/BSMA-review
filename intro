@@ -1,0 +1,19 @@
+Course Description	Starting with the core concepts of systems and mathematical modeling, this course systematically introduces the methodology of model building, numerical simulation, validation, and analysis. The students are expected to apply the concepts and techniques in both qualitative and quantitative analyses of biological systems. This course lays emphasis on the use of fundamental concepts in mathematics, physics, chemistry, and biology for the mass and energy balance in biological systems. The course first introduces the methodology of model formulation and numerical techniques for model simulation. It continues with processes of model validation and system analysis, etc. Important biological models in the areas of plant and animal physiology, microbial growth, photosynthesis, epidemic diseases, chaos in biology, and cellular automata, etc. are also presented and discussed.
+
+Specific topics include:
+1. Models of Systems and the Modeling Process
+2. Qualitative Model Formulation
+3. Quantitative Model Formulation
+4. Numerical Techniques
+5. Parameter Estimation
+6. Model Validation
+7. Model Analysis
+8. Stochastic Models
+9. Applications and Case Studies
+Course Objective	• To enable students understanding the mathematical modeling processes
+• To equip students with practical mathematical modeling and data analysis skills
+• To facilitate students building capabilities in abstract thinking and quantitative reasoning
+
+References	1. Adler, F.R.2004. Modeling the Dynamics of Life: Calculus and Probability for Life Scientists. Brooks Cole.
+2. Edelstein-Keshet, L. 2004. Mathematical Models in Biology. Siam Classics In Applied Mathematics 46.
+Designated Reading	Haefner, J.W. 2005. Modeling Biological Systems: Principles and Applications. Springer.
