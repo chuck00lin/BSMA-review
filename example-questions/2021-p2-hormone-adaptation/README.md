@@ -123,7 +123,7 @@ $$
 
 2. **慢階段($t \in [1, 50]$)**:$A$ 慢慢往 10 爬,於是「強解離」開始作用,把 $p$ 從 $0.83$ 拉回 $0.33$。最終 $(p,A) \to (1/3,\,10)$。
 
-> 圖見 `fig1_time_series.py` 輸出的 `fig1_time_series.png`(時序)與 `fig2_phase_plane.py` 輸出的 `fig2_phase_plane.png`(phase plane)。
+![Time series of p and A after the H: 1 → 10 step](fig1_time_series_clean.png)
 
 ### 4.4 在 phase plane 上發生什麼?
 
@@ -133,7 +133,11 @@ $$
 - **第一段**:$p$ 衝向右(因為 $A$ 還小,$p$ 快速上升),$A$ 幾乎不動 → 軌跡幾乎水平向右,到 $p \approx 0.83$。
 - **第二段**:$A$ 慢慢往上爬,$p$ 同時被拉回左邊 → 軌跡沿一條「拋物線狀」曲線爬升並左移,最後落到 $(1/3,\,10)$。
 
-> 這條軌跡之所以彎彎的,就是因為兩個變數的時間尺度差很多——它是**slow manifold** 的經典樣貌(見 [09-模型分析.md](../../redesigned/09-模型分析.md) 慢流形討論)。
+![Phase plane: trajectory tracks the slow manifold](fig2_phase_plane_clean.png)
+
+> 這條軌跡之所以彎彎的,就是因為兩個變數的時間尺度差很多——它是**slow manifold** 的經典樣貌(見 [09-模型分析.md](../../redesigned/09-模型分析.md) 慢流形討論)。圖中虛線就是 slow manifold $A = k_1 H (1-p)/p$:當 $p$ 已經追上 $A$(即 $dp/dt \approx 0$),系統就會沿著這條 1D 曲線慢慢移動。
+
+> 圖由 [`simulate_edu.py`](./simulate_edu.py) 產出(英文乾淨版,附詳細教學註解);中文版由 [`fig1_time_series.py`](./fig1_time_series.py) 與 [`fig2_phase_plane.py`](./fig2_phase_plane.py) 產出。
 
 ---
 
@@ -166,6 +170,16 @@ $$
 ```bash
 conda activate bsma-pdf
 cd example-questions/2021-p2-hormone-adaptation
-python fig1_time_series.py
-python fig2_phase_plane.py
+
+# 原始版(中文標籤)
+python fig1_time_series.py     # → fig1_time_series.png
+python fig2_phase_plane.py     # → fig2_phase_plane.png
+
+# 教育版(英文乾淨圖,時序 + phase plane;逐行教學註解)
+python simulate_edu.py         # → fig1_time_series_clean.png
+                               # → fig2_phase_plane_clean.png
 ```
+
+**何時用哪一個**:
+- **原始版** — 中文標籤,最簡可用程式碼參考。
+- **`simulate_edu.py`** — 想了解「**為什麼**這樣寫」(為何 `max_step=0.05` 才抓得到 spike、slow manifold 的代數推導、為何「perfect adaptation」是 integral feedback 的特例)。**初值的關鍵教學**:**從平衡點 (1/3, 1) 起步 + H 階躍** 才能凸顯 adaptation,從隨機初值看不出來這個現象。

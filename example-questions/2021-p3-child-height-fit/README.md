@@ -101,7 +101,9 @@ $$
 → 預測 $H(15) \approx 67.0$ inch
 → 預測 $H(30) \approx 74.0$ inch ✓(終身高 $\approx 74.3$ 吋 / 189 cm,合理)
 
-> **(實際數值會被 `fit_models.py` 寫到圖上,以上是大致數量級。)**
+![兒童身高擬合:logistic vs sqrt](fig1_model_compare_clean.png)
+
+> 圖由 [`fit_models_edu.py`](./fit_models_edu.py) 產出(乾淨英文版,附詳細教學註解);中文版 `fig1_model_compare.png` 由 [`fit_models.py`](./fit_models.py) 產出。
 
 ---
 
@@ -153,8 +155,19 @@ $$
 
 ## 附錄:跑擬合
 
+兩個版本,內容互補:
+
 ```bash
 conda activate bsma-pdf
 cd example-questions/2021-p3-child-height-fit
-python fit_models.py
+
+# 原始版(中文標籤的圖,輕量註解)
+python fit_models.py            # → fig1_model_compare.png
+
+# 教育版(英文乾淨圖,逐行教學註解;額外解釋初值挑選的三招)
+python fit_models_edu.py        # → fig1_model_compare_clean.png
 ```
+
+**何時用哪一個**:
+- **`fit_models.py`** — 最簡可用程式碼參考。
+- **`fit_models_edu.py`** — 想了解「**為什麼**這樣寫」(挑初值的三招、為何 Model B 可以閉式解、為何 F-test 在這題不適用),或要嵌入英文圖到 markdown / 簡報。

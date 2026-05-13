@@ -189,13 +189,13 @@ $$
 
 兩條 nullcline 的交點即為 $(u^*, v^*)$。
 
-> 圖見 `fig1_phase_portrait.py` 輸出的 `fig1_phase_portrait.png`。
-
 ### 4.3 步入平衡的時序(time evolution)
 
 從不同初值開始,$u, v$ 都會收斂到 $(u^*, v^*)$ — 為穩定螺旋(複根)或穩定節點(實根),取決於 $(\beta, \gamma)$ 是否讓 Jacobian 的判別式 $< 0$。
 
-> 圖見 `fig2_time_series.py` 輸出的 `fig2_time_series.png`。
+![Phase portrait + time series for the dimensionless plant–herbivore model](fig1_phase_portrait_clean.png)
+
+> 圖由 [`analyze_edu.py`](./analyze_edu.py) 產出(英文乾淨版,附詳細教學註解);中文版 `fig1_phase_portrait.png` 與 `fig2_time_series.png` 由原始腳本產出。
 
 ---
 
@@ -223,8 +223,17 @@ $$
 ## 附錄:重現圖檔
 
 ```bash
-conda activate data__env
+conda activate data__env  # or: conda activate bsma-pdf
 cd example-questions/2021-p1-plant-herbivore
-python fig1_phase_portrait.py
-python fig2_time_series.py
+
+# 原始版(中文標籤)
+python fig1_phase_portrait.py    # → fig1_phase_portrait.png
+python fig2_time_series.py       # → fig2_time_series.png
+
+# 教育版(英文乾淨圖,phase portrait + 時序合併;逐行教學註解)
+python analyze_edu.py            # → fig1_phase_portrait_clean.png
 ```
+
+**何時用哪一個**:
+- **原始版** — 中文標籤,最簡可用程式碼參考。
+- **`analyze_edu.py`** — 想了解「**為什麼**這樣寫」(為何挑 β=2, γ=1 當代表參數、向量場為何要正規化箭頭、軌跡 IC 為何挑四個角落、`max_step=0.1` 對畫圖平滑度的影響)。**初值的關鍵教學**:模型參數初值 (β, γ) 跟軌跡狀態初值 (u₀, v₀) 兩種「初值」都要分開談。

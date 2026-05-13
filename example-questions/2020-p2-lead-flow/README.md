@@ -148,7 +148,9 @@ $$
 
 **會,但時間是 $1/k_{13} \approx 19{,}800$ 天**(54 年)的量級——8000 天 (~22 年) 連一個時間常數都還沒走完。
 
-> 圖見 `fig2_simulations.py` 輸出的 `fig2_simulations.png`(2×2 panel)。
+![Lead 3-compartment model: 2 ICs × 2 time horizons](fig2_simulations_clean.png)
+
+> 圖由 [`simulate_edu.py`](./simulate_edu.py) 產出(英文乾淨版,附詳細教學註解);中文版 `fig2_simulations.png` 由 [`fig2_simulations.py`](./fig2_simulations.py) 產出。
 
 ---
 
@@ -206,6 +208,15 @@ $\approx 0.0211 \cdot 1800 + 0.0162 \cdot 699 \approx 37.98 + 11.32 \approx 49.3
 ```bash
 conda activate bsma-pdf
 cd example-questions/2020-p2-lead-flow
-python fig1_compartment_diagram.py
-python fig2_simulations.py
+
+# 原始版(中文標籤)
+python fig1_compartment_diagram.py    # → fig1_compartment_diagram.png
+python fig2_simulations.py            # → fig2_simulations.png
+
+# 教育版(英文乾淨圖,逐行教學註解;額外解釋為何用 solve_ivp、rtol/atol 選擇)
+python simulate_edu.py                # → fig2_simulations_clean.png
 ```
+
+**何時用哪一個**:
+- **原始版** — 中文標籤,最簡可用程式碼參考。
+- **`simulate_edu.py`** — 想了解「**為什麼**這樣寫」(為何 RK45 而不是 Euler、為何 `rtol=1e-9, atol=1e-12`、`max_step=2.0` 的意義、守恆檢查怎麼做)。**初值的關鍵教學**:兩組 IC 揭露的是「多時間尺度的不同故事」——IC1 看累積,IC2 看重分布。
