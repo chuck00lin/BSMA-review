@@ -167,7 +167,7 @@ $$
 \quad}
 $$
 
-> 圖見 `figures/ch03/fig1_compartment.png`(隔室結構圖)。
+> 圖見 `fig1_compartment.png`(隔室結構圖)。
 
 ### 6.1 守恆檢查(每個模型都要做!)
 
@@ -273,7 +273,7 @@ $$
 
 ## 8. 模擬:同樣 1 個感染源,完全不同的命運
 
-用 `scipy.integrate.solve_ivp` 跑兩組情境(完整程式在 `figures/ch03/_make_helpers.py`):
+用 `scipy.integrate.solve_ivp` 跑兩組情境(完整程式在 `_make_helpers.py`):
 
 | 情境 | $\beta$ | $\gamma$ | $R_0$ | 結果 |
 |---|---:|---:|---:|---|
@@ -281,7 +281,7 @@ $$
 | **B. 小流行** | 0.30 | 0.25 | 1.20 | 緩慢上升,幾百人感染 |
 | **C. 大爆發** | 0.75 | 0.25 | 3.00 | 1 個月內 90% 人感染 |
 
-> 圖見 `figures/ch03/fig2_three_scenarios.png`。
+> 圖見 `fig2_three_scenarios.png`。
 
 **這就是 R₀ 的威力**:跨過 1 之後,結果不是「**有點不一樣**」,而是「**質的轉變**」(qualitative change)——這在 [Ch01 五類問題](01-五類問題.md) 對應到 **Q1 穩定 vs 失控**。
 
@@ -319,7 +319,7 @@ $$
 
 這是 **final size equation**(終局規模方程)。不能解析解,但能畫:
 
-> 圖見 `figures/ch03/fig3_final_size.png`。
+> 圖見 `fig3_final_size.png`。
 
 - $R_0 = 1.2$:約 31% 被感染
 - $R_0 = 2.0$:約 80% 被感染
@@ -383,7 +383,7 @@ $$
 
 > **這就是 [Ch01 五類問題](01-五類問題.md) 的 Q4(對擾動敏感嗎)** 的另一面:**介入手段 = 給系統的擾動,我們在挑哪個擾動有效**。
 
-> 圖見 `figures/ch03/fig4_intervention.png` — 疫苗覆蓋率 $v$ 與流行規模的關係。
+> 圖見 `fig4_intervention.png` — 疫苗覆蓋率 $v$ 與流行規模的關係。
 
 ---
 
@@ -470,6 +470,6 @@ $$
 
 ```bash
 conda activate bsma-pdf
-cd problem-first/figures/ch03
+cd problem-first/應用例題/該不該介入-SIR
 python _make_helpers.py
 ```
